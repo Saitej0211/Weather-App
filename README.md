@@ -1,0 +1,2 @@
+# Weather App
+ Weather App  Overview  This Weather App is a straightforward application that allows users to check the current weather for any city around the world. It fetches real-time data from a weather API to display essential information such as temperature, humidity, and wind speed. The app is built to demonstrate basic API integration and dynamic content rendering.  Features  	•	Search for current weather by city name 	•	Displays key weather details like temperature and humidity 	•	Fetches real-time data from a weather API
