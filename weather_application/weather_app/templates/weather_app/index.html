@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <h1>Weather App</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="Enter city" required>
+        <button type="submit">Get Weather</button>
+    </form>
+
+    {% if weather_data %}
+    <div class="weather-info">
+        <h2>{{ weather_data.city }}</h2>
+        <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}@2x.png" alt="Weather Icon">
+        <p>Temperature: {{ weather_data.temperature }}°C</p>
+        <p>Description: {{ weather_data.description }}</p>
+    </div>
+    {% endif %}
+
+    {% if daily_forecast %}
+    <div class="forecast">
+        <h3>5-Day Forecast</h3>
+        <div class="forecast-items">
+            {% for day in daily_forecast %}
+            <div class="forecast-item">
+                <h4>{{ day.day }}</h4>
+                <img src="http://openweathermap.org/img/wn/{{ day.icon }}@2x.png" alt="Weather Icon">
+                <p>Min Temp: {{ day.min_temp }}°C</p>
+                <p>Max Temp: {{ day.max_temp }}°C</p>
+                <p>{{ day.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+</html>
