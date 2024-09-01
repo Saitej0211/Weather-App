@@ -1,6 +1,7 @@
 import requests
 import datetime
 from django.shortcuts import render
+from django.http import JsonResponse
 
 def index(request):
     API_KEY = '216dfed2f886cc6ec8f5d76d3089833a'
@@ -77,3 +78,15 @@ def fetch_weather_forecast_info(city, api_key, weather_url, forecast_url):
             break
     
     return weather_info, daily_forecasts
+
+def get_cities(request):
+    query = request.GET.get('query', '')
+    api_url = f'https://api.api-ninjas.com/v1/city?name={query}'
+    response = requests.get(api_url, headers={'X-Api-Key': 'k2I1gRSo7KhMRINVvcy8rKaO9Ljr8BQvsQ7YTB0U'})
+    print(response)
+    if response.status_code == requests.codes.ok:
+        cities = response.json()
+        # Returning the city names and country codes as JSON
+        return JsonResponse([{'name': city['name'], 'country': city['country']} for city in cities], safe=False)
+    else:
+        return JsonResponse({'error': 'Unable to fetch cities'}, status=response.status_code)
