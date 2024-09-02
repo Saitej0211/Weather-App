@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static '/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -47,7 +47,7 @@
             }
         }
     </script>
-    <style>
+    {% comment %} <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -220,14 +220,14 @@
         .footer-text a {
             position: absolute;
             bottom: 10px;
-            right: 10px;
+            right: 7px;
             font-size: 20px;
             text-decoration: none;
             color: White;
             margin-left: 8px;
             font-weight: bold;
         }
-    </style>
+    </style> {% endcomment %}
 </head>
 <body>
     <i class="fas fa-info-circle info-icon" onclick="openModal()"></i>
@@ -267,30 +267,30 @@
     </form>
 
     {% if weather_data %}
-    <div class="weather-info">
-        <h2>{{ weather_data.city }}</h2>
-        <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}@2x.png" alt="Weather Icon">
-        <p>Temperature: {{ weather_data.temperature }}°C</p>
-        <p>Description: {{ weather_data.description }}</p>
-    </div>
-    {% endif %}
+<div class="weather-info">
+    <h2>{{ weather_data.city }}</h2>
+    <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}@2x.png" alt="{{ weather_data.description }} icon">
+    <p>Temperature: {{ weather_data.temperature }}°C</p>
+    <p>Description: {{ weather_data.description }}</p>
+</div>
+{% endif %}
 
-    {% if daily_forecast %}
-    <div class="forecast">
-        <h3>5-Day Forecast</h3>
-        <div class="forecast-items">
-            {% for day in daily_forecast %}
-            <div class="forecast-item">
-                <h4>{{ day.day }}</h4>
-                <img src="http://openweathermap.org/img/wn/{{ day.icon }}@2x.png" alt="Weather Icon">
-                <p>Min Temp: {{ day.min_temp }}°C</p>
-                <p>Max Temp: {{ day.max_temp }}°C</p>
-                <p>{{ day.description }}</p>
-            </div>
-            {% endfor %}
+{% if daily_forecast %}
+<div class="forecast">
+    <h3>5-Day Forecast</h3>
+    <div class="forecast-items">
+        {% for day in daily_forecast %}
+        <div class="forecast-item">
+            <h4>{{ day.day }}</h4>
+            <img src="http://openweathermap.org/img/wn/{{ day.icon }}@2x.png" alt="{{ day.description }} icon">
+            <p>Min Temp: {{ day.min_temp }}°C</p>
+            <p>Max Temp: {{ day.max_temp }}°C</p>
+            <p>{{ day.description }}</p>
         </div>
+        {% endfor %}
     </div>
-    {% endif %}
+</div>
+{% endif %}
 
     <div class="footer-text">
         <a href="https://saitej0211.github.io/iPortfolio/"><i class="fas fa-user"></i>
